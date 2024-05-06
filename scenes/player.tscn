@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://s7m5wxbrb2xn"]
+
+[ext_resource type="Script" path="res://scenes/PlayerMovement.cs" id="1_btexk"]
+[ext_resource type="Texture2D" uid="uid://bgh4g7unoxir8" path="res://images/spaceship nobg.png" id="2_6ieo3"]
+[ext_resource type="Script" path="res://scenes/Gun.cs" id="3_ju7d3"]
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_btexk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_6ieo3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
+polygon = PackedVector2Array(0, -16, 0, -72, -8, -56, -16, -32, -48, -24, -64, 0, -64, 32, -16, 8, 0, 64, 16, 8, 64, 32, 64, 0, 48, -24, 16, -32, 8, -56, 0, -72)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -100
+limit_top = -100
+limit_right = 1100
+limit_bottom = 1100
+limit_smoothed = true
+
+[node name="Gun" type="Marker2D" parent="."]
+position = Vector2(88, 1.73472e-18)
+script = ExtResource("3_ju7d3")

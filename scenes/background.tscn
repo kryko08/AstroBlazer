@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1k5264gaota1"]
+
+[ext_resource type="Texture2D" uid="uid://dh7jb4i2re7xe" path="res://images/space resized.png" id="1_8r6te"]
+[ext_resource type="Texture2D" uid="uid://c0x82pbpjjlql" path="res://images/planet resized.png" id="2_7y1rf"]
+[ext_resource type="Texture2D" uid="uid://cye45dsx0j4rp" path="res://images/asteroids.png" id="3_0g3q8"]
+
+[node name="Background" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="StarsLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/StarsLayer"]
+position = Vector2(500, 500)
+texture = ExtResource("1_8r6te")
+
+[node name="PlanetLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.7)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/PlanetLayer"]
+position = Vector2(500, 500)
+texture = ExtResource("2_7y1rf")
+
+[node name="AsteroidsLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.85, 0.85)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/AsteroidsLayer"]
+position = Vector2(500, 500)
+texture = ExtResource("3_0g3q8")

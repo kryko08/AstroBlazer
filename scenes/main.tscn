@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgf5cul3408xu"]
+
+[ext_resource type="PackedScene" uid="uid://c1k5264gaota1" path="res://scenes/background.tscn" id="1_pa57e"]
+[ext_resource type="PackedScene" uid="uid://s7m5wxbrb2xn" path="res://scenes/player.tscn" id="2_woahs"]
+[ext_resource type="PackedScene" uid="uid://84fec4aldv7w" path="res://scenes/Global.tscn" id="4_kwglf"]
+[ext_resource type="PackedScene" uid="uid://2wb6um1tvplr" path="res://scenes/debugDraw.tscn" id="5_c5oe4"]
+[ext_resource type="PackedScene" uid="uid://c8v8ivdtq4ju5" path="res://scenes/Asteroid.tscn" id="5_jpy5l"]
+
+[node name="Main" type="Node"]
+
+[node name="Background" parent="." instance=ExtResource("1_pa57e")]
+
+[node name="Player" parent="." instance=ExtResource("2_woahs")]
+
+[node name="Global" parent="." instance=ExtResource("4_kwglf")]
+
+[node name="DebugDraw" parent="." instance=ExtResource("5_c5oe4")]
+
+[node name="Asteroid" parent="." instance=ExtResource("5_jpy5l")]
+position = Vector2(576, 392)
