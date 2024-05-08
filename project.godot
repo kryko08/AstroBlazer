@@ -19,6 +19,7 @@ config/icon="res://images/icon.svg"
 
 PlayerMovement="*res://scenes/PlayerMovement.cs"
 GlobalVars="*res://scenes/Global.cs"
+Player="*res://scenes/player.tscn"
 
 [display]
 

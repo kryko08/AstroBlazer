@@ -4,9 +4,15 @@ using System.Collections.Generic;
 
 public partial class Global : Node
 {
-	public readonly int MinPosition = -100;
-	public readonly int MaxPosition = 1100;
+	public readonly int MinPosition = -0;
+	public readonly int MaxPosition = 1000;
+
+	public readonly int GameSpeed = 100;
+
+	public readonly int ScreenWidth = 1000;
+	public readonly int ScreenHeight = 1000;
 	
+
 	// Top, Right, Bottom, Left
 	public readonly List<List<Vector2>> Borders = new List<List<Vector2>>()
 	{
@@ -23,3 +29,4 @@ public partial class Global : Node
 	
 }
 	
+

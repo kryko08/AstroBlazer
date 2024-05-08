@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://djxsthncyk8q7"]
+
+[ext_resource type="Script" path="res://scenes/HUD.cs" id="1_63exq"]
+[ext_resource type="FontFile" uid="uid://cxomvqtfa8hb6" path="res://fonts/PixelifySans-Regular.ttf" id="2_124tx"]
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_63exq")
+
+[node name="TimeLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.5
+offset_top = -34.5
+offset_right = 62.5
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_124tx")
+theme_override_font_sizes/font_size = 135
+text = "10"

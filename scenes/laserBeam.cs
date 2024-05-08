@@ -16,7 +16,7 @@ public partial class laserBeam : Area2D
 	
 	private void OnBodyEntered(Node2D body)
 	{
-		// GD.Print(body.Name);
+		
 	}
 	
 	private void OnVisibleOnScreenNotifier2dScreenExited()

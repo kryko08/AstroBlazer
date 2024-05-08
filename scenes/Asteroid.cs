@@ -4,16 +4,21 @@ using System;
 public partial class Asteroid : Area2D
 {
 	private int _health;
+	public int AsteroidSpeed;
 	
 	
 	public override void _Ready()
 	{
+
+		AsteroidSpeed = 30;
 		_health = 60;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		var direction = Vector2.Right.Rotated(Rotation);
+		Position += direction * AsteroidSpeed * (float)delta;
 		CheckHealth();
 	}
 
@@ -43,6 +48,7 @@ public partial class Asteroid : Area2D
 			var script = area as laserBeam;
 			var damage = script.BulletDamage;
 			TakeDamage(damage);
+			area.QueueFree();
 		} 
 	}
 	
