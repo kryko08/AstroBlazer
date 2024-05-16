@@ -11,20 +11,21 @@ config_version=5
 [application]
 
 config/name="AstroBlazer"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/MainGameScene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://images/icon.svg"
 
 [autoload]
 
-PlayerMovement="*res://scenes/PlayerMovement.cs"
-GlobalVars="*res://scenes/Global.cs"
+PlayerMovement="*res://scripts/PlayerMovement.cs"
+GlobalVars="*res://scripts/Global.cs"
 Player="*res://scenes/player.tscn"
 
 [display]
 
 window/size/viewport_width=1000
 window/size/viewport_height=1000
+window/size/resizable=false
 
 [dotnet]
 

@@ -11,6 +11,7 @@ public partial class CameraMovement : Camera2D
 	public override void _Ready()
 	{
 		GlabalVars = GetNode<Global>("/root/GlobalVars");
+		GD.Print("Hello from camera script");
 	}
 
 	public override void _Process(double delta)

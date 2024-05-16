@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dko3t37i6ommo"]
 
 [ext_resource type="Texture2D" uid="uid://ddoty0rp8o6ns" path="res://images/laser_beam-removebg-preview.png" id="1_1mkpt"]
-[ext_resource type="Script" path="res://scenes/laserBeam.cs" id="1_u7utx"]
+[ext_resource type="Script" path="res://scripts/laserBeam.cs" id="1_u7utx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_id3qt"]
 size = Vector2(64, 20)

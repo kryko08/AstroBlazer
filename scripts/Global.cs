@@ -11,8 +11,10 @@ public partial class Global : Node
 
 	public readonly int ScreenWidth = 1000;
 	public readonly int ScreenHeight = 1000;
-	
 
+	public int PlayerScore = 0;
+	
+	
 	// Top, Right, Bottom, Left
 	public readonly List<List<Vector2>> Borders = new List<List<Vector2>>()
 	{
@@ -26,7 +28,11 @@ public partial class Global : Node
 	{
 		GD.Print("Game Over");
 	}
-	
+
+	public void IncreasePlayerScore()
+	{
+		PlayerScore += 1;
+	}
 }
 	
 

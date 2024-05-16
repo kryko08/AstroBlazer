@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://djxsthncyk8q7"]
+[gd_scene load_steps=5 format=3 uid="uid://djxsthncyk8q7"]
 
-[ext_resource type="Script" path="res://scenes/HUD.cs" id="1_63exq"]
+[ext_resource type="Script" path="res://scripts/HUD.cs" id="1_63exq"]
 [ext_resource type="FontFile" uid="uid://cxomvqtfa8hb6" path="res://fonts/PixelifySans-Regular.ttf" id="2_124tx"]
+[ext_resource type="Texture2D" uid="uid://chobhdefwkmj6" path="res://images/asteroid.png" id="3_hr18i"]
+[ext_resource type="FontFile" uid="uid://brx4ref6lhopq" path="res://fonts/PixelifySans-Medium.ttf" id="4_jg6d3"]
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_63exq")
@@ -22,3 +24,17 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_124tx")
 theme_override_font_sizes/font_size = 135
 text = "10"
+
+[node name="AsteroidIcon" type="Sprite2D" parent="."]
+position = Vector2(856, 944)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_hr18i")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 896.0
+offset_top = 912.0
+offset_right = 936.0
+offset_bottom = 981.0
+theme_override_fonts/font = ExtResource("4_jg6d3")
+theme_override_font_sizes/font_size = 50
+text = "0"

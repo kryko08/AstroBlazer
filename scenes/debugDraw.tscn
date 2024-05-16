@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://2wb6um1tvplr"]
 
-[ext_resource type="Script" path="res://scenes/debugDraw.cs" id="1_ju41b"]
+[ext_resource type="Script" path="res://scripts/debugDraw.cs" id="1_ju41b"]
 
 [node name="DebugDraw" type="Node2D"]
 script = ExtResource("1_ju41b")

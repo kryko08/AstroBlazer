@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8v8ivdtq4ju5"]
+[gd_scene load_steps=5 format=3 uid="uid://c8v8ivdtq4ju5"]
 
-[ext_resource type="Script" path="res://scenes/Asteroid.cs" id="1_q1nik"]
+[ext_resource type="Script" path="res://scripts/Asteroid.cs" id="1_l33hp"]
 [ext_resource type="Texture2D" uid="uid://chobhdefwkmj6" path="res://images/asteroid.png" id="1_xirvu"]
+[ext_resource type="AudioStream" uid="uid://dhf51e6s4w3ho" path="res://sounds/asteroidExplosion.mp3" id="3_oce1e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vt1he"]
 radius = 64.4981
 
 [node name="Asteroid" type="Area2D" groups=["Asteroids"]]
-script = ExtResource("1_q1nik")
+script = ExtResource("1_l33hp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
@@ -16,5 +17,12 @@ texture = ExtResource("1_xirvu")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vt1he")
 
+[node name="AsteroidNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="StreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_oce1e")
+max_distance = 500.0
+
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="screen_exited" from="AsteroidNotifier" to="." method="OnAsteroidNotifierScreenExited"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://njnt0pg851qm"]
+
+[ext_resource type="AudioStream" uid="uid://bckh56noptkv8" path="res://sounds/AstroBlazerBackGroundv2.mp3" id="1_2hysv"]
+
+[node name="BackGroundMusicPlayer" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_2hysv")
+volume_db = -15.633
+autoplay = true

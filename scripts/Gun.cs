@@ -8,10 +8,12 @@ public partial class Gun : Marker2D
 
 	private float _gunCoolDown = 300;
 	private ulong _lastShotAt;
+	private AudioStreamPlayer2D _soundPlayer;
 	public override void _Ready()
 	{
 		_laserBeam = GD.Load<PackedScene>("res://scenes/laserBeam.tscn");
 		_lastShotAt = Time.GetTicksMsec();
+		_soundPlayer = GetNode<AudioStreamPlayer2D>("StreamPlayer");
 	}
 
 	
@@ -20,12 +22,8 @@ public partial class Gun : Marker2D
 		
 		if (IsShooting() && Time.GetTicksMsec() > _lastShotAt + _gunCoolDown)
 		{
-			Area2D instance = _laserBeam.Instantiate() as Area2D;
-			GetTree().Root.AddChild(instance);
-			instance.GlobalPosition = GlobalPosition;
-			instance.Rotation = GlobalRotation;
-			
-			_lastShotAt = Time.GetTicksMsec();
+			Shoot();
+			_soundPlayer.Play();
 		}
 	}
 
@@ -37,5 +35,15 @@ public partial class Gun : Marker2D
 		}
 
 		return false;
+	}
+
+	private void Shoot()
+	{
+		Area2D instance = _laserBeam.Instantiate() as Area2D;
+		GetTree().Root.AddChild(instance);
+		instance.GlobalPosition = GlobalPosition;
+		instance.Rotation = GlobalRotation;
+		
+		_lastShotAt = Time.GetTicksMsec();
 	}
 }

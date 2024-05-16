@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://s7m5wxbrb2xn"]
+[gd_scene load_steps=5 format=3 uid="uid://s7m5wxbrb2xn"]
 
-[ext_resource type="Script" path="res://scenes/PlayerMovement.cs" id="1_btexk"]
+[ext_resource type="Script" path="res://scripts/PlayerMovement.cs" id="1_btexk"]
 [ext_resource type="Texture2D" uid="uid://bgh4g7unoxir8" path="res://images/spaceship nobg.png" id="2_6ieo3"]
-[ext_resource type="Script" path="res://scenes/Gun.cs" id="3_ju7d3"]
+[ext_resource type="Script" path="res://scripts/Gun.cs" id="3_ju7d3"]
+[ext_resource type="AudioStream" uid="uid://bgft1m1aekf7a" path="res://sounds/laserGun.wav" id="4_qbx1k"]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(500, 500)
@@ -20,5 +21,8 @@ polygon = PackedVector2Array(0, -16, 0, -72, -8, -56, -16, -32, -48, -24, -64, 0
 [node name="Gun" type="Marker2D" parent="."]
 position = Vector2(88, 1.73472e-18)
 script = ExtResource("3_ju7d3")
+
+[node name="StreamPlayer" type="AudioStreamPlayer2D" parent="Gun"]
+stream = ExtResource("4_qbx1k")
 
 [node name="tst" type="VisibleOnScreenNotifier2D" parent="."]
