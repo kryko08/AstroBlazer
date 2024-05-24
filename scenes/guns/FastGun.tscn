@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://clj07fm0u1byf"]
+
+[ext_resource type="Script" path="res://scripts/FastGun.cs" id="1_pq12u"]
+[ext_resource type="AudioStream" uid="uid://b604vd0rjhuc3" path="res://sounds/fastGun.mp3" id="2_j3vfs"]
+
+[node name="FastGun" type="Marker2D"]
+script = ExtResource("1_pq12u")
+
+[node name="StreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_j3vfs")

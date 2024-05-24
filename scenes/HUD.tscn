@@ -1,9 +1,66 @@
-[gd_scene load_steps=5 format=3 uid="uid://djxsthncyk8q7"]
+[gd_scene load_steps=10 format=3 uid="uid://djxsthncyk8q7"]
 
 [ext_resource type="Script" path="res://scripts/HUD.cs" id="1_63exq"]
 [ext_resource type="FontFile" uid="uid://cxomvqtfa8hb6" path="res://fonts/PixelifySans-Regular.ttf" id="2_124tx"]
 [ext_resource type="Texture2D" uid="uid://chobhdefwkmj6" path="res://images/asteroid.png" id="3_hr18i"]
 [ext_resource type="FontFile" uid="uid://brx4ref6lhopq" path="res://fonts/PixelifySans-Medium.ttf" id="4_jg6d3"]
+
+[sub_resource type="Animation" id="Animation_s1cjl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimeLabel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [135]
+}
+
+[sub_resource type="Animation" id="Animation_u471i"]
+resource_name = "time_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimeLabel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [135, 100, 135]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ewdow"]
+_data = {
+"RESET": SubResource("Animation_s1cjl"),
+"time_left": SubResource("Animation_u471i")
+}
+
+[sub_resource type="Animation" id="Animation_8nj5l"]
+resource_name = "score_increase"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScoreLabel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [50, 70, 50]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c8sbc"]
+_data = {
+"score_increase": SubResource("Animation_8nj5l")
+}
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_63exq")
@@ -24,6 +81,7 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_124tx")
 theme_override_font_sizes/font_size = 135
 text = "10"
+horizontal_alignment = 1
 
 [node name="AsteroidIcon" type="Sprite2D" parent="."]
 position = Vector2(856, 944)
@@ -32,9 +90,21 @@ texture = ExtResource("3_hr18i")
 
 [node name="ScoreLabel" type="Label" parent="."]
 offset_left = 896.0
-offset_top = 912.0
-offset_right = 936.0
+offset_top = 904.0
+offset_right = 960.0
 offset_bottom = 981.0
 theme_override_fonts/font = ExtResource("4_jg6d3")
 theme_override_font_sizes/font_size = 50
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeLeftAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ewdow")
+}
+
+[node name="ScoreIncreaseAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_c8sbc")
+}

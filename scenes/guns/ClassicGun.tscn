@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmfw44ikia2xm"]
+
+[ext_resource type="Script" path="res://scripts/Gun.cs" id="1_g6b47"]
+[ext_resource type="AudioStream" uid="uid://bgft1m1aekf7a" path="res://sounds/laserGun.wav" id="2_f33ir"]
+
+[node name="Gun" type="Marker2D"]
+position = Vector2(88, 1.73472e-18)
+script = ExtResource("1_g6b47")
+
+[node name="StreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_f33ir")

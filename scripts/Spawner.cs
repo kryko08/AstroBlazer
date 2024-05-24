@@ -8,6 +8,9 @@ public partial class Spawner : Node2D
 	[Export]
 	public PackedScene AsteroidScene { get; set; }
 	
+	[Export]
+	public PackedScene CoinScene { set; get; }
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -21,10 +24,8 @@ public partial class Spawner : Node2D
 
 	private void OnAsteroidTimerTimeout()
 	{
-		Area2D asteroidInstance = AsteroidScene.Instantiate() as Area2D;
+		var asteroidInstance = AsteroidScene.Instantiate() as Node2D;
 		
-		// Choose a random location on Path2D.
-		// AsteroidPath.ProgressRatio = GD.Randf();
 		var randomTop = GD.RandRange(GlabalVars.MinPosition, GlabalVars.MaxPosition);
 		var topPosition = new Vector2(randomTop, Position.Y);
 		
@@ -39,6 +40,17 @@ public partial class Spawner : Node2D
 		GetTree().Root.AddChild(asteroidInstance);
 		
 	}
+	private void OnCoinTimerTimeout()
+	{
+		var fastCoinInstance = CoinScene.Instantiate() as Node2D;
+		
+		var randomTop = GD.RandRange(GlabalVars.MinPosition, GlabalVars.MaxPosition);
+		var topPosition = new Vector2(randomTop, Position.Y);
+		fastCoinInstance.GlobalPosition = topPosition;
+		
+		GetTree().Root.AddChild(fastCoinInstance);
+		
+	}
 	
 	private void MoveSpawner(double delta)
 	{
@@ -49,7 +61,10 @@ public partial class Spawner : Node2D
 		Position += velocity * (float)delta;
 	}
 	
+	
 }
+
+
 
 
 

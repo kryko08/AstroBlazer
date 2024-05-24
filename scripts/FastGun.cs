@@ -1,21 +1,21 @@
 using Godot;
 using System;
 
-public partial class Gun : Marker2D, IGunState
+public partial class FastGun : Marker2D, IGunState
 {
-	public float GunCoolDown => 200;
 	public PackedScene Beam { get; private set; }
 	public AudioStreamPlayer2D Sound { get; set; }
+	public float GunCoolDown => 75;
 	public ulong LastShotAt { get; set; }
 	private AudioStreamPlayer2D _soundPlayer;
 	public override void _Ready()
 	{
-		Beam = GD.Load<PackedScene>("res://scenes/beams/laserBeam.tscn");
+		Beam = GD.Load<PackedScene>("res://scenes/beams/FastLaserBeam.tscn");
 		LastShotAt = Time.GetTicksMsec();
 		_soundPlayer = GetNode<AudioStreamPlayer2D>("StreamPlayer");
 	}
-
 	
+
 	private bool IsShooting()
 	{
 		if (Input.IsActionPressed("click"))

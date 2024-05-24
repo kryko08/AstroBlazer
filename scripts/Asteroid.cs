@@ -1,31 +1,25 @@
 using Godot;
 using System;
 
-public partial class Asteroid : Area2D
+public partial class Asteroid : Node2D
 {
-	private int _health;
-	public int AsteroidSpeed;
+	private int _health = 60;
+	public int AsteroidSpeed = 30;
 
 	public Global GlobalVars;
-
-	private PackedScene _beamParticles = GD.Load<PackedScene>("res://scenes/LaserBeamParticles.tscn");
-
-	private AudioStreamPlayer2D _audioStreamPlayer2D;
-	private CollisionShape2D _collisionShape;
-	private Sprite2D _sprite;
+	
+	private AnimationPlayer _hitFlashAnimationPlayer;
+	private AnimationPlayer _destroyAnimationPlayer;
+	
 	
 	public override void _Ready()
 	{
-
-		AsteroidSpeed = 30;
-		_health = 60;
 		
 		GlobalVars = GetNode<Global>("/root/GlobalVars");
-		
-		_audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("StreamPlayer");
+		_hitFlashAnimationPlayer = GetNode<AnimationPlayer>("HitFlashAnimationPlayer");
+		_destroyAnimationPlayer = GetNode<AnimationPlayer>("DestroyAnimationPlayer");
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	
 	public override void _Process(double delta)
 	{
 		MoveAsteroid(delta);
@@ -37,29 +31,19 @@ public partial class Asteroid : Area2D
 		{
 			DestroySelf();
 		}
-		
 	}
 
 	private void DestroySelf()
 	{
 		GlobalVars.IncreasePlayerScore();
-		QueueFree();
+		_destroyAnimationPlayer.Play("destroy");
 	}
 
-	private void TakeDamage(int damage)
+	public void TakeDamage(int damage)
 	{
 		_health -= damage;
-	}
-	
-	private void OnAreaEntered(Area2D area)
-	{
-		if (area.IsInGroup("Beam"))
-		{
-			DestroyBeam(area);
-			CreateParticle();
-			CheckHealth();
-			
-		} 
+		_hitFlashAnimationPlayer.Play("hit_flash");
+		CheckHealth();
 	}
 	
 	private void OnBodyEntered(Node2D body)
@@ -75,21 +59,7 @@ public partial class Asteroid : Area2D
 	{
 		QueueFree();
 	}
-
-	private void DestroyBeam(Area2D area)
-	{
-		var script = area as laserBeam;
-		var damage = script.BulletDamage;
-		TakeDamage(damage);
-		area.QueueFree();
-	}
-
-	private void CreateParticle()
-	{
-		var particleInstance = _beamParticles.Instantiate() as CpuParticles2D;
-		GetTree().Root.AddChild(particleInstance);
-		particleInstance.GlobalPosition = GlobalPosition;
-	}
+	
 
 	private void MoveAsteroid(double delta)
 	{
@@ -98,9 +68,3 @@ public partial class Asteroid : Area2D
 	}
 	
 }
-
-
-
-
-
-

@@ -1,28 +1,190 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8v8ivdtq4ju5"]
+[gd_scene load_steps=13 format=3 uid="uid://c8v8ivdtq4ju5"]
 
 [ext_resource type="Script" path="res://scripts/Asteroid.cs" id="1_l33hp"]
 [ext_resource type="Texture2D" uid="uid://chobhdefwkmj6" path="res://images/asteroid.png" id="1_xirvu"]
+[ext_resource type="Shader" uid="uid://bp0rydmp12o10" path="res://materials/hitFlash.tres" id="2_e8tk3"]
 [ext_resource type="AudioStream" uid="uid://dhf51e6s4w3ho" path="res://sounds/asteroidExplosion.mp3" id="3_oce1e"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vt1he"]
-radius = 64.4981
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mselv"]
+resource_local_to_scene = true
+shader = ExtResource("2_e8tk3")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
-[node name="Asteroid" type="Area2D" groups=["Asteroids"]]
+[sub_resource type="Animation" id="Animation_puwgo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_yctf2"]
+resource_name = "hit_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qywc3"]
+_data = {
+"RESET": SubResource("Animation_puwgo"),
+"hit_flash": SubResource("Animation_yctf2")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctv2c"]
+radius = 56.0
+
+[sub_resource type="Animation" id="Animation_owb7s"]
+resource_name = "destroy"
+length = 1.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [false],
+"method": &"set_physics_process"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Area2D/CollisionShape2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StreamPlayer:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AsteroidParticles:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ynrjp"]
+_data = {
+"destroy": SubResource("Animation_owb7s")
+}
+
+[sub_resource type="Gradient" id="Gradient_rjfp0"]
+offsets = PackedFloat32Array(0.192719, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[node name="Asteroid" type="Node2D"]
+z_index = 4
 script = ExtResource("1_l33hp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_mselv")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_xirvu")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_vt1he")
-
 [node name="AsteroidNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-3.8147e-06, -3.8147e-06)
+scale = Vector2(5.6, 6.4)
 
 [node name="StreamPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_oce1e")
+volume_db = -15.0
 max_distance = 500.0
 
-[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
-[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qywc3")
+}
+
+[node name="Area2D" type="Area2D" parent="." groups=["Asteroids"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ctv2c")
+
+[node name="DestroyAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ynrjp")
+}
+
+[node name="AsteroidParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 3
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.6
+texture = ExtResource("1_xirvu")
+emission_shape = 1
+emission_sphere_radius = 25.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+angular_velocity_min = -250.0
+angular_velocity_max = 250.0
+damping_min = 50.68
+damping_max = 100.0
+scale_amount_min = 0.05
+scale_amount_max = 0.15
+color_ramp = SubResource("Gradient_rjfp0")
+
 [connection signal="screen_exited" from="AsteroidNotifier" to="." method="OnAsteroidNotifierScreenExited"]
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
+[connection signal="finished" from="AsteroidParticles" to="AsteroidParticles" method="OnFinished"]

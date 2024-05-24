@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://scripts/Global.cs" id="1_voc60"]
 
-[node name="Global" type="Node"]
+[node name="Global" type="Node2D"]
 script = ExtResource("1_voc60")

@@ -1,11 +1,11 @@
 using Godot;
 using System;
 
-public partial class laserBeam : Node2D
+public partial class FastLaserBeam : Node2D
 {
-	public float BulletSpeed = 2000;
-	public int BulletDamage = 20;
-
+	public float BulletSpeed = 3000;
+	public int BulletDamage = 15;
+	
 	private AnimationPlayer _hitAnimationPlayer;
 
 	public override void _Ready()
@@ -19,8 +19,7 @@ public partial class laserBeam : Node2D
 		Position += direction * BulletSpeed * (float)delta;
 	}
 	
-	
-	private void OnVisibleOnScreenNotifier2dScreenExited()
+	private void OnNotifierScreenExited()
 	{
 		QueueFree();
 	}
@@ -33,7 +32,5 @@ public partial class laserBeam : Node2D
 			asteroid.TakeDamage(BulletDamage);
 			_hitAnimationPlayer.Play("hit_animation");
 		}
-		
 	}
-	
 }
