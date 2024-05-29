@@ -5,12 +5,11 @@ __Sprints Duration: 1 weeks each__
 
 __Total Sprints: 4 (adjust as needed)__
 
-### Sprint 1: Core Mechanics and Player Interaction Goals:
+### Sprint 1: Core Mechanics and Player Interaction
 
 __Implement player and camera movement
 Develop basic shooting functionality
 Create initial asteroid behavior__
-Tasks:
 
 _Player Movement:_
 Implement WASD movement
@@ -28,7 +27,6 @@ Design basic asteroid movement
 Implement asteroid collision with bullets
 
 ### Sprint 2: Game Structure and User Interface
-Goals:
 
 __Develop main menu and HUD
 Implement border checking
@@ -49,11 +47,9 @@ _Sounds:_
 Add background music and sound effects for shooting and collisions
 
 ### Sprint 3: Power-Ups and Asteroids Spawner
-Goals:
 
 __Add power-ups and their effects,
 implement gun swapping__
-Tasks:
 
 _Power-Ups:_
 Design power-ups (e.g., faster shooting, shield)
@@ -67,7 +63,6 @@ Refine bullet behavior (e.g., speed, types)
 Implement shooting power-ups interaction
 
 ### Sprint 4: Final Touches and Polishing
-Goals:
 
 __Implement game over screen and final HUD updates
 Add final sounds and polish__
