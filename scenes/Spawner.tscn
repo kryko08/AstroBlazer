@@ -1,20 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://by3pw0tqohauu"]
+[gd_scene load_steps=2 format=3 uid="uid://by3pw0tqohauu"]
 
 [ext_resource type="Script" path="res://scripts/Spawner.cs" id="1_7ko2g"]
-[ext_resource type="PackedScene" uid="uid://c8v8ivdtq4ju5" path="res://scenes/Asteroid.tscn" id="2_lpk11"]
-[ext_resource type="PackedScene" uid="uid://byxtdrfr1uqd4" path="res://scenes/coins/FastCoin.tscn" id="3_7doy6"]
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_7ko2g")
-AsteroidScene = ExtResource("2_lpk11")
-CoinScene = ExtResource("3_7doy6")
 
 [node name="AsteroidTimer" type="Timer" parent="."]
 wait_time = 0.5
-autostart = true
 
-[node name="CoinTimer" type="Timer" parent="."]
-autostart = true
+[node name="SpecialItemTimer" type="Timer" parent="."]
+wait_time = 15.0
 
 [connection signal="timeout" from="AsteroidTimer" to="." method="OnAsteroidTimerTimeout"]
-[connection signal="timeout" from="CoinTimer" to="." method="OnCoinTimerTimeout"]
+[connection signal="timeout" from="SpecialItemTimer" to="." method="OnSpecialItemTimerTimeout"]

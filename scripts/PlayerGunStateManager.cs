@@ -25,4 +25,9 @@ public partial class PlayerGunStateManager : Node2D
 		GD.Print("Swap to default gun");
 		_currentGunState = GetNode<Marker2D>("Gun") as IGunState;
 	}
+
+	public void ChangeToFastGunState()
+	{
+		_currentGunState = GetNode<Marker2D>("FastGun") as IGunState;
+	}
 }

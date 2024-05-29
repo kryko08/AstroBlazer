@@ -14,8 +14,7 @@ public partial class Global : Node
 
 	public int PlayerScore = 0;
 	
-	private PackedScene _backGroundMusic = GD.Load<PackedScene>("res://scenes/BackGroundMusicPlayer.tscn");
-
+	
 	[Signal]
 	public delegate void ScoreEditEventHandler(int score);
 	
@@ -27,28 +26,16 @@ public partial class Global : Node
 		new List<Vector2> { new Vector2(1070, 1070), new Vector2(-70, 1070) },
 		new List<Vector2> { new Vector2(-70, 1070), new Vector2(-70, -70) }
 	};
-	
-	public override void _Ready()
-	{
-		PlayBackGroundMusic();
-	}
-
-	public void GameOver()
-	{
-		GD.Print("Game Over");
-	}
 
 	public void IncreasePlayerScore()
 	{
 		PlayerScore += 1;
 		EmitSignal(SignalName.ScoreEdit, PlayerScore);
 	}
-	
-	private void PlayBackGroundMusic()
+
+	public void RestartPlayerScore()
 	{
-		var camera = GetTree().Root.GetNode<Camera2D>("Main/Camera");
-		var backGroundMusicInstance = _backGroundMusic.Instantiate();
-		camera.AddChild(backGroundMusicInstance);
+		PlayerScore = 0;
 	}
 }
 	

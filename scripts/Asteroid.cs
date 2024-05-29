@@ -35,6 +35,7 @@ public partial class Asteroid : Node2D
 
 	private void DestroySelf()
 	{
+		// GlobalVars.IncreasePlayerScore();
 		GlobalVars.IncreasePlayerScore();
 		_destroyAnimationPlayer.Play("destroy");
 	}
@@ -50,8 +51,13 @@ public partial class Asteroid : Node2D
 	{
 		if (body.IsInGroup("Player"))
 		{
+			// Kill player
 			var script = body as PlayerMovement;
-			script.AsteroidCollision();
+			script.Die();
+			
+			// Stop the Game
+			var main = GetTree().Root.GetNode("Main") as MainGameScene;
+			main.GameOver();
 		}
 	}
 	

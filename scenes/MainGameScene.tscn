@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgf5cul3408xu"]
+[gd_scene load_steps=8 format=3 uid="uid://dgf5cul3408xu"]
 
+[ext_resource type="Script" path="res://scripts/MainGameScene.cs" id="1_3k614"]
 [ext_resource type="PackedScene" uid="uid://c1k5264gaota1" path="res://scenes/background.tscn" id="1_jnadj"]
-[ext_resource type="PackedScene" uid="uid://5wabyoybxnsd" path="res://scenes/BorderCheck.tscn" id="4_gw1yv"]
+[ext_resource type="AudioStream" uid="uid://bckh56noptkv8" path="res://sounds/AstroBlazerBackGroundv2.mp3" id="3_7nxth"]
 [ext_resource type="Script" path="res://scripts/CameraMovement.cs" id="4_t5ywx"]
 [ext_resource type="PackedScene" uid="uid://djxsthncyk8q7" path="res://scenes/HUD.tscn" id="5_f1e86"]
+[ext_resource type="PackedScene" uid="uid://s7m5wxbrb2xn" path="res://scenes/player.tscn" id="6_d657a"]
 [ext_resource type="PackedScene" uid="uid://by3pw0tqohauu" path="res://scenes/Spawner.tscn" id="6_jtls0"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_3k614")
 
 [node name="Background" parent="." instance=ExtResource("1_jnadj")]
 
@@ -14,13 +17,18 @@
 position = Vector2(500, 500)
 script = ExtResource("4_t5ywx")
 
-[node name="BorderCheck" parent="." instance=ExtResource("4_gw1yv")]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Camera"]
+stream = ExtResource("3_7nxth")
+volume_db = -30.0
+autoplay = true
 
 [node name="Hud" parent="." instance=ExtResource("5_f1e86")]
 
 [node name="Spawner" parent="." instance=ExtResource("6_jtls0")]
 position = Vector2(0, -64)
 
-[connection signal="OnScreenEnterHud" from="BorderCheck" to="Hud" method="OnBorderCheckOnScreenEnterHud"]
-[connection signal="OnScreenExitedHud" from="BorderCheck" to="Hud" method="OnBorderCheckOnScreenExitedHud"]
-[connection signal="TimeOutsideScreen" from="BorderCheck" to="Hud" method="OnBorderCheckTimeOutsideScreen"]
+[node name="Player" parent="." instance=ExtResource("6_d657a")]
+
+[connection signal="PlayerEnteredScreen" from="Player" to="Hud" method="OnPlayerEnteredScreen"]
+[connection signal="PlayerLeftScreen" from="Player" to="Hud" method="OnPlayerLeftScreen"]
+[connection signal="TimeOutsideScreen" from="Player" to="Hud" method="OnTimeOutsideScreen"]

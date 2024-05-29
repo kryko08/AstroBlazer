@@ -1,6 +1,70 @@
-[gd_scene load_steps=2 format=3 uid="uid://5wabyoybxnsd"]
+[gd_scene load_steps=2 format=3 uid="uid://dpqbij0hiiwhf"]
 
-[ext_resource type="Script" path="res://scripts/BorderCheck.cs" id="1_nedsg"]
+[sub_resource type="CSharpScript" id="CSharpScript_1ugr7"]
+script/source = "using Godot;
+using System;
+using System.Diagnostics.Contracts;
+using GodotPlugins.Game;
+
+public partial class BorderCheck : Node2D
+{
+	public CharacterBody2D Player;
+	public Global GlobalVars;
+	public VisibleOnScreenNotifier2D notifier;
+
+	public ulong LastInSight;
+	public bool IsVisible;
+	
+	[Signal]
+	public delegate void TimeOutsideScreenEventHandler(ulong timeLeft);
+	[Signal]
+	public delegate void OnScreenEnterHudEventHandler();
+	[Signal]
+	public delegate void OnScreenExitedHudEventHandler();
+	public override void _Ready()
+	{
+		Player = GetNode<CharacterBody2D>(\"/root/Player\");
+		GlobalVars = GetNode<Global>(\"/root/GlobalVars\");
+
+		notifier = Player.GetNode<VisibleOnScreenNotifier2D>(\"ScreenNotifier\");
+		notifier.ScreenEntered += OnScreenEntered;
+		notifier.ScreenExited += OnScreenExited;
+
+		IsVisible = true;
+	}
+
+	void OnScreenEntered()
+	{
+		IsVisible = true;
+		EmitSignal(SignalName.OnScreenEnterHud);
+	}
+
+	void OnScreenExited()
+	{
+		IsVisible = false;
+		LastInSight = Time.GetTicksMsec();
+		EmitSignal(SignalName.OnScreenExitedHud);
+	}
+
+	public override void _Process(double delta)
+	{
+		if (IsVisible == false)
+		{
+			var currentTime = Time.GetTicksMsec();
+			var timeLeft = 10000 - (currentTime - LastInSight);
+			EmitSignal(SignalName.TimeOutsideScreen, timeLeft);
+			
+			if (timeLeft <= 0)
+			{
+				// var main = GetTree().Root.GetNode(\"Main\") as MainGameScene;
+				// main.GameOver();
+				// EmitSignal(SignalName.OnScreenEnterHud);
+				GD.Print(\"Death due to outisde screen\");
+			}
+		}
+	}
+}
+"
 
 [node name="BorderCheck" type="Node2D"]
-script = ExtResource("1_nedsg")
+script = SubResource("CSharpScript_1ugr7")

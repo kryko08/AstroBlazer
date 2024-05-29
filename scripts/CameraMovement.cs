@@ -1,32 +1,48 @@
 using Godot;
 using System;
+using AstroBlazer.scripts.CameraState;
 
 public partial class CameraMovement : Camera2D
 {
 	public Global GlabalVars;
+	
+	// States 
+	private CameraMovingState _movingState;
+	private CameraStoppedState _stoppedState;
 
+	private CameraState _currentState;
+	
+	
+	// Signals
 	[Signal]
 	public delegate void CameraPositionChangedEventHandler(Vector2 position);
 
 	public override void _Ready()
 	{
 		GlabalVars = GetNode<Global>("/root/GlobalVars");
-		GD.Print("Hello from camera script");
+
+		_movingState = new CameraMovingState();
+		_movingState.SetContext(this);
+
+		_stoppedState = new CameraStoppedState();
+		_stoppedState.SetContext(this);
+
+		_currentState = _stoppedState;
 	}
 
 	public override void _Process(double delta)
 	{
-		MoveCamera(delta);
-		EmitSignal(SignalName.CameraPositionChanged, Position);
+		_currentState.onProcess(delta);
 	}
 
-	public void MoveCamera(double delta)
+	public void StartMovingCamera()
 	{
-		var velocity = new Vector2();
-		velocity.Y += -1;
-		velocity = velocity * GlabalVars.GameSpeed;
+		_currentState = _movingState;
+	}
 
-		Position += velocity * (float)delta;
+	public void StopMovingCamera()
+	{
+		_currentState = _stoppedState;
 	}
 
 }

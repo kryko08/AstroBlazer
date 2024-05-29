@@ -13,6 +13,7 @@ public partial class HUD : CanvasLayer
 
 	private AnimationPlayer _scoreIncreaseAnimationPlayer;
 	
+	
 	public override void _Ready()
 	{
 		TimeLabel = GetNode<Label>("TimeLabel");
@@ -27,36 +28,34 @@ public partial class HUD : CanvasLayer
 
 		_scoreIncreaseAnimationPlayer = GetNode<AnimationPlayer>("ScoreIncreaseAnimationPlayer");
 		
-		// Connect to Global Signal
-		GlobalVars.ScoreEdit += score =>
-		{
-			OnEditPlayerScore(score);
-		};
 	}
 	
-	private void OnBorderCheckTimeOutsideScreen(long timeLeft)
+	public override void _Process(double delta)
+	{
+		ScoreLabel.Text = GlobalVars.PlayerScore.ToString();
+	}
+
+	private void OnPlayerEnteredScreen()
+	{
+		TimeLabel.Hide();
+	}
+
+
+	private void OnPlayerLeftScreen()
+	{
+		TimeLabel.Show();
+	}
+
+
+	private void OnTimeOutsideScreen(ulong timeLeft)
 	{
 		double seconds = timeLeft / 1000.0;
 		string formattedString = seconds.ToString("0");
 		TimeLabel.Text = formattedString;
 	}
-	
-	private void OnBorderCheckOnScreenEnterHud()
-	{
-		TimeLabel.Hide();
-	}
-	
-	private void OnBorderCheckOnScreenExitedHud()
-	{
-		TimeLabel.Show();
-	}
-
-	private void OnEditPlayerScore(int newScore)
-	{
-		ScoreLabel.Text = newScore.ToString();
-		_scoreIncreaseAnimationPlayer.Play("score_increase");
-	}
 }
+
+
 
 
 

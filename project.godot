@@ -17,9 +17,7 @@ config/icon="res://images/icon.svg"
 
 [autoload]
 
-PlayerMovement="*res://scripts/PlayerMovement.cs"
 GlobalVars="*res://scripts/Global.cs"
-Player="*res://scenes/player.tscn"
 
 [display]
 
